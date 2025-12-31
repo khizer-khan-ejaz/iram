@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Educational Gallery - All Subjects</title>
+    <title>Iram Khan - AI Educator Portfolio</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Poppins:wght@300;400;600;800&display=swap');
+
         :root {
+            --primary: #dc2626;
+            --primary-dark: #991b1b;
+            --dark: #0f172a;
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.5);
             --math-color: #2563eb;
             --eng-color: #db2777;
             --sci-color: #059669;
             --sst-color: #d97706;
-            --bg-white: #ffffff;
-            --text-dark: #1e293b;
             --card-shadow: 0 20px 50px rgba(0,0,0,0.08);
         }
 
@@ -25,53 +29,270 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-white);
-            color: var(--text-dark);
+            font-family: 'Outfit', sans-serif;
+            background-color: #a4d4ea;
+            color: var(--dark);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        .gallery-header {
-            text-align: center;
-            padding: 60px 20px 20px;
-            max-width: 800px;
+        .container {
+            max-width: 1280px;
             margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
-        .gallery-header h1 {
+        /* Header Styles */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: 0 20px 60px rgba(220, 38, 38, 0.1);
+            flex-wrap: wrap;
+            gap: 30px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            flex-shrink: 0;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid white;
+            box-shadow: 0 10px 40px rgba(220, 38, 38, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .ai-halo {
+            position: absolute;
+            top: -15px; 
+            left: -15px; 
+            right: -15px; 
+            bottom: -15px;
+            border-radius: 50%;
+            border: 3px dashed var(--primary);
+            animation: spin 20s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes spin { 
+            100% { transform: rotate(360deg); } 
+        }
+
+        .header-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .header-text h1 {
             font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
+            line-height: 1.1;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, var(--math-color), var(--eng-color), var(--sci-color), var(--sst-color));
+            background: linear-gradient(45deg, #0f172a, #dc2626);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
         }
 
-        .gallery-header p {
-            font-size: 1.2rem;
+        .header-text h2 {
+            font-size: 1.5rem;
+            color: #64748b;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .tag-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .header-text p {
+            max-width: 600px;
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin: 80px 0 20px;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .section-title span {
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        /* Flip Cards */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            perspective: 1000px;
+            margin-bottom: 40px;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            height: 350px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, 
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .flip-card-front {
+            background: white;
+            border-bottom: 5px solid var(--primary);
+        }
+
+        .flip-card-front h3 {
+            font-size: 1.5rem;
+            margin: 20px 0 10px;
+            color: var(--dark);
+        }
+
+        .flip-card-front p {
             color: #64748b;
         }
 
+        .flip-card-back {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .skill-icon {
+            font-size: 4rem;
+            background: linear-gradient(45deg, var(--primary), #f87171);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .flip-card-back h3 {
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .flip-card-back ul {
+            text-align: left;
+            list-style: none;
+            line-height: 1.8;
+        }
+
+        .flip-card-back li {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .flip-card-back li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Subject Section */
         .gallery-session {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 40px;
-            padding: 40px;
-            max-width: 1400px;
+            padding: 20px 0;
             margin: 0 auto;
         }
 
         .subject-card {
             background: white;
             border-radius: 30px;
-            width: 500px;
+            width: 100%;
+            max-width: 500px;
             box-shadow: var(--card-shadow);
             overflow: hidden;
             transition: transform 0.4s ease;
             border: 1px solid #f1f5f9;
             position: relative;
+            font-family: 'Poppins', sans-serif;
         }
 
         .subject-card:hover {
@@ -102,6 +323,16 @@
             font-size: 0.9rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             backdrop-filter: blur(5px);
+            z-index: 2;
+        }
+
+        .interact-hint {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            pointer-events: none;
         }
 
         .card-content {
@@ -117,6 +348,11 @@
         .eng-title { color: var(--eng-color); }
         .sci-title { color: var(--sci-color); }
         .sst-title { color: var(--sst-color); }
+
+        .card-content > p {
+            color: #475569;
+            line-height: 1.6;
+        }
 
         .mindset-box {
             background: #f8fafc;
@@ -140,6 +376,11 @@
             color: #94a3b8;
         }
 
+        .mindset-box p {
+            margin: 5px 0;
+            color: #475569;
+        }
+
         .productive-list {
             list-style: none;
             margin-top: 15px;
@@ -157,6 +398,7 @@
             content: '✦';
             margin-right: 10px;
             font-weight: bold;
+            flex-shrink: 0;
         }
 
         .math-list li::before { color: var(--math-color); }
@@ -164,133 +406,582 @@
         .sci-list li::before { color: var(--sci-color); }
         .sst-list li::before { color: var(--sst-color); }
 
-        .interact-hint {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            font-size: 0.8rem;
-            color: #cbd5e1;
-            pointer-events: none;
+        /* Example Section */
+        .example-section {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 50px 30px;
+            margin-top: 60px;
+            box-shadow: 0 20px 60px rgba(220, 38, 38, 0.1);
         }
 
-        @media (max-width: 800px) {
-            .gallery-session {
-                flex-direction: column;
-                align-items: center;
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .example-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .example-card::before {
+            content: '';
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), #f87171);
+        }
+
+        .example-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .example-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .example-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .example-card h4 {
+            font-size: 1.1rem;
+            margin: 15px 0 10px;
+            color: var(--primary);
+        }
+
+        .example-card ul {
+            margin: 10px 0;
+            padding-left: 20px;
+            color: #475569;
+        }
+
+        .example-card ul li {
+            margin-bottom: 5px;
+        }
+
+        .ai-output {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 3px solid var(--primary);
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Process Section */
+        .process-section {
+            background: white;
+            border-radius: 30px;
+            padding: 50px 30px;
+            margin-top: 60px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+
+        .process-section h3 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--dark);
+            font-weight: 800;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+            padding: 20px;
+        }
+
+        .step-number {
+            font-size: 4rem;
+            font-weight: 800;
+            color: rgba(220, 38, 38, 0.1);
+            position: absolute;
+            top: -10px; 
+            left: 50%; 
+            transform: translateX(-50%);
+        }
+
+        .step-content {
+            position: relative;
+            z-index: 1;
+            padding-top: 40px;
+        }
+
+        .step-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .step-content p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* Experience Section */
+        .glass-box {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .glass-box:hover {
+            transform: translateX(15px);
+            box-shadow: 0 10px 40px rgba(220, 38, 38, 0.1);
+        }
+
+        .glass-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .glass-box h4 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .glass-box p {
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+            margin: 80px 0 40px;
+            padding: 60px 30px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .contact-section > p {
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        .btn-connect {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 18px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            box-shadow: 0 15px 35px rgba(220, 38, 38, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-connect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(220, 38, 38, 0.4);
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .header-text h1 {
+                font-size: 2.5rem;
             }
-            .subject-card {
-                width: 100%;
+            
+            .header-text h2 {
+                font-size: 1.2rem;
+            }
+            
+            .profile-container {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .example-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 30px 20px;
+            }
+
+            .header-text h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .contact-section h2 {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-
-    <header class="gallery-header">
-        <h1>The Learning Dimensions</h1>
-        <p>Interactive 3D Gallery for Productive Mindsets</p>
-    </header>
-
-    <section class="gallery-session">
-
-        <!-- MATH CARD -->
-        <article class="subject-card">
-            <div class="canvas-wrapper" id="math-container">
-                <div class="canvas-label" style="color: var(--math-color)">📐 Structural Logic</div>
-                <div class="interact-hint">Hover to Rotate</div>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <div class="profile-container">
+                <div class="ai-halo"></div>
+                <img src="1.jpeg" class="profile-img" alt="Iram Khan">
             </div>
-            <div class="card-content">
-                <h2 class="math-title">Mathematics</h2>
-                <p>Math is not just numbers; it's the hidden architecture of our universe. It is the language of structure.</p>
-                
-                <div class="mindset-box mindset-math">
-                    <div class="mindset-title">Productive Mindset</div>
-                    <p><strong>"I am a Problem Solver"</strong></p>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">Don't memorize formulas. Visualize the pattern.</p>
+            <div class="header-text">
+                <h1>Iram Khan</h1>
+                <h2>Transforming Education with Artificial Intelligence</h2>
+                <div class="tag-container">
+                    <div class="tag"><i class="fas fa-robot"></i> AI Specialist</div>
+                    <div class="tag"><i class="fas fa-chalkboard-teacher"></i> English Educator</div>
+                    <div class="tag"><i class="fas fa-microphone"></i> Public Speaking Coach</div>
+                </div>
+                <p>
+                    I leverage <strong>Generative AI</strong> to transform abstract concepts into visual experiences. Through AI-generated videos, images, and automated assessments, I create learning environments where students don't just memorize—they truly understand.
+                </p>
+            </div>
+        </header>
+
+        <!-- FLIP CARDS SECTION -->
+        <h2 class="section-title">Core <span>AI Teaching Capabilities</span></h2>
+        <p class="section-subtitle">Hover to discover how AI transforms traditional education</p>
+        
+        <div class="skills-grid">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-video skill-icon"></i>
+                        <h3>AI Video Generation</h3>
+                        <p>Transforming concepts into visual narratives</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Visual Learning at Scale</h3>
+                        <ul>
+                            <li>Generate custom explainer videos for complex topics using AI tools.</li>
+                            <li>Create animated concept visualizations that adapt to student's pace.</li>
+                            <li>Transform text lessons into engaging video content instantly.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-image skill-icon"></i>
+                        <h3>AI Image Generation</h3>
+                        <p>Visual aids that enhance comprehension</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Concept Visualization</h3>
+                        <ul>
+                            <li>Generate contextual images for vocabulary and grammar lessons.</li>
+                            <li>Create visual storyboards for narrative comprehension.</li>
+                            <li>Design infographics and diagrams that simplify complex ideas.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-brain skill-icon"></i>
+                        <h3>Automated Assessment</h3>
+                        <p>Intelligent question generation & grading</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Smart Testing System</h3>
+                        <ul>
+                            <li>Generate unlimited practice questions at varying difficulty levels.</li>
+                            <li>Create MCQs, fill-in-blanks, and comprehension tests instantly.</li>
+                            <li>Provide instant feedback with detailed explanations.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-lightbulb skill-icon"></i>
+                        <h3>Concept Simplification</h3>
+                        <p>Making difficult topics accessible</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>AI-Powered Clarity</h3>
+                        <ul>
+                            <li>Break down complex concepts using AI-generated analogies.</li>
+                            <li>Create multi-modal explanations (text, visual, audio).</li>
+                            <li>Adapt content complexity based on student comprehension.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUBJECT SECTION -->
+        <h2 class="section-title">The <span>Learning Dimensions</span></h2>
+        <p class="section-subtitle">Interactive 3D Visualizations for Productive Mindsets</p>
+
+        <section class="gallery-session">
+            <!-- MATH CARD -->
+            <article class="subject-card">
+                <div class="canvas-wrapper" id="math-container">
+                    <div class="canvas-label" style="color: var(--math-color)">📐 Structural Logic</div>
+                    <div class="interact-hint">Hover to Rotate</div>
+                </div>
+                <div class="card-content">
+                    <h2 class="math-title">Mathematics</h2>
+                    <p>Math is not just numbers; it's the hidden architecture of our universe. It is the language of structure.</p>
+                    
+                    <div class="mindset-box mindset-math">
+                        <div class="mindset-title">Productive Mindset</div>
+                        <p><strong>"I am a Problem Solver"</strong></p>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">Don't memorize formulas. Visualize the pattern.</p>
+                    </div>
+
+                    <ul class="productive-list math-list">
+                        <li>View errors as "debugging" the process.</li>
+                        <li>Focus on the <em>why</em>, not just the answer.</li>
+                        <li>Break big problems into small geometries.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- ENGLISH CARD -->
+            <article class="subject-card">
+                <div class="canvas-wrapper" id="eng-container">
+                    <div class="canvas-label" style="color: var(--eng-color)">✒️ Fluid Expression</div>
+                    <div class="interact-hint">Hover to Swirl</div>
+                </div>
+                <div class="card-content">
+                    <h2 class="eng-title">English & Arts</h2>
+                    <p>Language is fluid. It connects abstract thoughts to reality through storytelling and persuasion.</p>
+                    
+                    <div class="mindset-box mindset-eng">
+                        <div class="mindset-title">Productive Mindset</div>
+                        <p><strong>"I am an Architect of Ideas"</strong></p>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">Words are bricks. You decide what to build.</p>
+                    </div>
+
+                    <ul class="productive-list eng-list">
+                        <li>Read to steal ideas, write to share them.</li>
+                        <li>Vocabulary is your color palette.</li>
+                        <li>Clarity > Complexity.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- SCIENCE CARD -->
+            <article class="subject-card">
+                <div class="canvas-wrapper" id="sci-container">
+                    <div class="canvas-label" style="color: var(--sci-color)">🔬 Universal Laws</div>
+                    <div class="interact-hint">Hover to Explore</div>
+                </div>
+                <div class="card-content">
+                    <h2 class="sci-title">Science</h2>
+                    <p>Science is curiosity made systematic. It reveals how nature works through observation and experimentation.</p>
+                    
+                    <div class="mindset-box mindset-sci">
+                        <div class="mindset-title">Productive Mindset</div>
+                        <p><strong>"I am an Explorer of Reality"</strong></p>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">Question everything. Test your assumptions.</p>
+                    </div>
+
+                    <ul class="productive-list sci-list">
+                        <li>Experiments are questions asked to nature.</li>
+                        <li>Failure in science means discovery.</li>
+                        <li>Connect concepts across physics, chemistry, biology.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- SOCIAL STUDIES CARD -->
+            <article class="subject-card">
+                <div class="canvas-wrapper" id="sst-container">
+                    <div class="canvas-label" style="color: var(--sst-color)">🌍 Human Journey</div>
+                    <div class="interact-hint">Hover to Navigate</div>
+                </div>
+                <div class="card-content">
+                    <h2 class="sst-title">Social Studies</h2>
+                    <p>History and society are stories of human decisions. Understanding the past illuminates the present.</p>
+                    
+                    <div class="mindset-box mindset-sst">
+                        <div class="mindset-title">Productive Mindset</div>
+                        <p><strong>"I am a Critical Thinker"</strong></p>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">Every event has context. Seek multiple perspectives.</p>
+                    </div>
+
+                    <ul class="productive-list sst-list">
+                        <li>History repeats patterns, not events.</li>
+                        <li>Geography shapes culture and conflict.</li>
+                        <li>Think like a detective analyzing evidence.</li>
+                    </ul>
+                </div>
+            </article>
+        </section>
+
+        <!-- EXAMPLES SECTION -->
+        <div class="example-section">
+            <h2 class="section-title" style="margin-top: 0;">AI Automation in <span>Action</span></h2>
+            <p class="section-subtitle">Real examples of how I use AI to teach different subjects</p>
+
+            <div class="example-grid">
+                <div class="example-card">
+                    <div class="example-icon">📐</div>
+                    <h3>Mathematics</h3>
+                    <h4>Concept: Area of Circle</h4>
+                    <p><strong>Traditional Method:</strong> Teacher draws circle on board, explains formula A = πr²</p>
+                    <h4>My AI Method:</h4>
+                    <ul>
+                        <li>AI generates animated video showing circle dividing into sectors</li>
+                        <li>Visual transformation of sectors into rectangle shape</li>
+                    </ul>
+                    <div class="ai-output">
+                        <strong>AI Output:</strong> Generated 50 practice problems + step-by-step solutions + real-world applications
+                    </div>
                 </div>
 
-                <ul class="productive-list math-list">
-                    <li>View errors as "debugging" the process.</li>
-                    <li>Focus on the <em>why</em>, not just the answer.</li>
-                    <li>Break big problems into small geometries.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- ENGLISH CARD -->
-        <article class="subject-card">
-            <div class="canvas-wrapper" id="eng-container">
-                <div class="canvas-label" style="color: var(--eng-color)">✒️ Fluid Expression</div>
-                <div class="interact-hint">Hover to Swirl</div>
-            </div>
-            <div class="card-content">
-                <h2 class="eng-title">English & Arts</h2>
-                <p>Language is fluid. It connects abstract thoughts to reality through storytelling and persuasion.</p>
-                
-                <div class="mindset-box mindset-eng">
-                    <div class="mindset-title">Productive Mindset</div>
-                    <p><strong>"I am an Architect of Ideas"</strong></p>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">Words are bricks. You decide what to build.</p>
+                <div class="example-card">
+                    <div class="example-icon">📚</div>
+                    <h3>English</h3>
+                    <h4>Concept: Vocabulary Building</h4>
+                    <p><strong>Traditional Method:</strong> Word list with meanings</p>
+                    <h4>My AI Method:</h4>
+                    <ul>
+                        <li>AI generates contextual image for word "Resilience"</li>
+                        <li>Creates story scenario using the word naturally</li>
+                    </ul>
+                    <div class="ai-output">
+                        <strong>AI Output:</strong> "Use these 10 new words to write a paragraph" + AI checks spelling/usage
+                    </div>
                 </div>
-
-                <ul class="productive-list eng-list">
-                    <li>Read to steal ideas, write to share them.</li>
-                    <li>Vocabulary is your color palette.</li>
-                    <li>Clarity > Complexity.</li>
-                </ul>
             </div>
-        </article>
+        </div>
 
-        <!-- SCIENCE CARD -->
-        <article class="subject-card">
-            <div class="canvas-wrapper" id="sci-container">
-                <div class="canvas-label" style="color: var(--sci-color)">🔬 Universal Laws</div>
-                <div class="interact-hint">Hover to Explore</div>
-            </div>
-            <div class="card-content">
-                <h2 class="sci-title">Science</h2>
-                <p>Science is curiosity made systematic. It reveals how nature works through observation and experimentation.</p>
-                
-                <div class="mindset-box mindset-sci">
-                    <div class="mindset-title">Productive Mindset</div>
-                    <p><strong>"I am an Explorer of Reality"</strong></p>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">Question everything. Test your assumptions.</p>
+        <!-- WORKFLOW SECTION -->
+        <div class="process-section">
+            <h3>The AI Teaching Workflow</h3>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h4>Analyze Student Needs</h4>
+                        <p>Identify learning gaps and comprehension challenges through assessment data.</p>
+                    </div>
                 </div>
-
-                <ul class="productive-list sci-list">
-                    <li>Experiments are questions asked to nature.</li>
-                    <li>Failure in science means discovery.</li>
-                    <li>Connect concepts across physics, chemistry, biology.</li>
-                </ul>
-            </div>
-        </article>
-
-        <!-- SOCIAL STUDIES CARD -->
-        <article class="subject-card">
-            <div class="canvas-wrapper" id="sst-container">
-                <div class="canvas-label" style="color: var(--sst-color)">🌍 Human Journey</div>
-                <div class="interact-hint">Hover to Navigate</div>
-            </div>
-            <div class="card-content">
-                <h2 class="sst-title">Social Studies</h2>
-                <p>History and society are stories of human decisions. Understanding the past illuminates the present.</p>
-                
-                <div class="mindset-box mindset-sst">
-                    <div class="mindset-title">Productive Mindset</div>
-                    <p><strong>"I am a Critical Thinker"</strong></p>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">Every event has context. Seek multiple perspectives.</p>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h4>Generate AI Content</h4>
+                        <p>Create customized videos, images, and practice materials using generative AI.</p>
+                    </div>
                 </div>
-
-                <ul class="productive-list sst-list">
-                    <li>History repeats patterns, not events.</li>
-                    <li>Geography shapes culture and conflict.</li>
-                    <li>Think like a detective analyzing evidence.</li>
-                </ul>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h4>Deliver & Engage</h4>
+                        <p>Present AI-enhanced lessons that make concepts clear and memorable.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h4>Assess & Iterate</h4>
+                        <p>Use automated testing to measure understanding and refine approach.</p>
+                    </div>
+                </div>
             </div>
-        </article>
+        </div>
 
-    </section>
+        <!-- EXPERIENCE SECTION -->
+        <h2 class="section-title">Teaching <span>Experience</span></h2>
+        
+        <div class="glass-box">
+            <h3>Foxbrain Institute (2024)</h3>
+            <h4>Public Speaking Coach</h4>
+            <p>Integrated AI tools to record and analyze student debates. Developed a "Tech-Talk" curriculum where students learn to present complex ideas simply using AI-generated visual aids and speech analysis.</p>
+        </div>
 
+        <div class="glass-box">
+            <h3>Planetspark (2023 - Present)</h3>
+            <h4>English Teacher</h4>
+            <p>Utilized digital platforms to teach creative writing. Used generative AI to help students overcome writer's block by generating story starters, character images, and contextual vocabulary visualizations.</p>
+        </div>
+
+        <!-- CONTACT SECTION -->
+        <div class="contact-section">
+            <h2>Ready for the Future of Learning?</h2>
+            <p>Let's discuss how AI can revolutionize your institution's curriculum and student engagement.</p>
+            <a href="mailto:ikhaaniram566@gmail.com" class="btn-connect">
+                <i class="fas fa-paper-plane"></i> Contact Me
+            </a>
+            <div class="contact-info">
+                <i class="fas fa-phone"></i> 7982020741
+            </div>
+        </div>
+    </div>
+
+    <!-- THREE.JS SCRIPTS -->
     <script>
         function createScene(containerId) {
             const container = document.getElementById(containerId);
@@ -334,7 +1025,12 @@
         const mathShape = new THREE.Mesh(geometryMath, materialMath);
         
         const wireGeo = new THREE.IcosahedronGeometry(2, 1);
-        const wireMat = new THREE.MeshBasicMaterial({ color: 0x93c5fd, wireframe: true, transparent: true, opacity: 0.3 });
+        const wireMat = new THREE.MeshBasicMaterial({ 
+            color: 0x93c5fd, 
+            wireframe: true, 
+            transparent: true, 
+            opacity: 0.3 
+        });
         const mathWire = new THREE.Mesh(wireGeo, wireMat);
 
         mathSys.scene.add(mathShape);
@@ -342,7 +1038,8 @@
 
         let mathMouseX = 0;
         mathSys.container.addEventListener('mousemove', (e) => {
-            mathMouseX = (e.clientX / mathSys.container.clientWidth) * 2 - 1;
+            const rect = mathSys.container.getBoundingClientRect();
+            mathMouseX = ((e.clientX - rect.left) / mathSys.container.clientWidth) * 2 - 1;
         });
 
         // ENGLISH SCENE
@@ -354,7 +1051,7 @@
         const colors = [];
         const colorObj = new THREE.Color();
 
-        for(let i=0; i<particleCount; i++) {
+        for(let i = 0; i < particleCount; i++) {
             positions.push((Math.random() - 0.5) * 5);
             positions.push((Math.random() - 0.5) * 5);
             positions.push((Math.random() - 0.5) * 5);
@@ -385,11 +1082,12 @@
         let engMouseX = 0;
         let engMouseY = 0;
         engSys.container.addEventListener('mousemove', (e) => {
-            engMouseX = (e.clientX - engSys.container.offsetLeft) * 0.001;
-            engMouseY = (e.clientY - engSys.container.offsetTop) * 0.001;
+            const rect = engSys.container.getBoundingClientRect();
+            engMouseX = (e.clientX - rect.left) * 0.001;
+            engMouseY = (e.clientY - rect.top) * 0.001;
         });
 
-        // SCIENCE SCENE - Atomic Model
+        // SCIENCE SCENE
         const sciSys = createScene('sci-container');
         
         const nucleus = new THREE.Mesh(
@@ -405,11 +1103,21 @@
                 new THREE.SphereGeometry(0.15, 16, 16),
                 new THREE.MeshPhongMaterial({ color: 0x6ee7b7 })
             );
-            electrons.push({ mesh: electron, angle: (i * Math.PI * 2) / 3, radius: 1.5 + i * 0.5, speed: 0.5 + i * 0.3 });
+            electrons.push({ 
+                mesh: electron, 
+                angle: (i * Math.PI * 2) / 3, 
+                radius: 1.5 + i * 0.5, 
+                speed: 0.5 + i * 0.3 
+            });
             sciSys.scene.add(electron);
 
             const orbitGeo = new THREE.RingGeometry(1.5 + i * 0.5, 1.52 + i * 0.5, 64);
-            const orbitMat = new THREE.MeshBasicMaterial({ color: 0x10b981, transparent: true, opacity: 0.2, side: THREE.DoubleSide });
+            const orbitMat = new THREE.MeshBasicMaterial({ 
+                color: 0x10b981, 
+                transparent: true, 
+                opacity: 0.2, 
+                side: THREE.DoubleSide 
+            });
             const orbit = new THREE.Mesh(orbitGeo, orbitMat);
             orbit.rotation.x = Math.PI / 2;
             orbits.push(orbit);
@@ -418,10 +1126,11 @@
 
         let sciMouseX = 0;
         sciSys.container.addEventListener('mousemove', (e) => {
-            sciMouseX = (e.clientX / sciSys.container.clientWidth) * 2 - 1;
+            const rect = sciSys.container.getBoundingClientRect();
+            sciMouseX = ((e.clientX - rect.left) / sciSys.container.clientWidth) * 2 - 1;
         });
 
-        // SOCIAL STUDIES SCENE - Globe/Network
+        // SOCIAL STUDIES SCENE
         const sstSys = createScene('sst-container');
         
         const globe = new THREE.Mesh(
@@ -452,7 +1161,8 @@
 
         let sstMouseX = 0;
         sstSys.container.addEventListener('mousemove', (e) => {
-            sstMouseX = (e.clientX / sstSys.container.clientWidth) * 2 - 1;
+            const rect = sstSys.container.getBoundingClientRect();
+            sstMouseX = ((e.clientX - rect.left) / sstSys.container.clientWidth) * 2 - 1;
         });
 
         // ANIMATION LOOP
@@ -501,7 +1211,7 @@
 
         animate();
 
-        // Handle Resize
+        // HANDLE RESIZE
         window.addEventListener('resize', () => {
             [mathSys, engSys, sciSys, sstSys].forEach(sys => {
                 const w = sys.container.clientWidth;
